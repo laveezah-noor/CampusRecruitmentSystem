@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button } from 'react-native';
-import {H1, H2, List, ListItem, Left, Body, Right} from 'native-base'
+import {H1, H2, Thumbnail, List, ListItem, Left, Body, Right} from 'native-base'
 
 export default function JobsScreen({cmd}) {
   return(

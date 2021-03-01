@@ -12,6 +12,8 @@ import AddApplicationsScreen from '../screens/Company/AddApplicationsScreen';
 import CompanyProfileScreen from '../screens/Company/ProfileScreen';
 import StudentProfileScreen from '../screens/Student/ProfileScreen';
 import StudentsScreen from '../screens/Company/StudentsScreen';
+import JobsScreen from '../screens/Student/JobsScreen';
+import CompaniesScreen from '../screens/Student/CompaniesScreen';
 import {icons} from '../constants/index'
 
 const CompanyBottomTab = createBottomTabNavigator();
@@ -37,14 +39,14 @@ function CompanyBottomTabNavigator() {
         name="Applications"
         component={ApplicationsNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="file" color={color} />,
+          tabBarIcon: ({ focused, color }) => <TabBarIcon name="file" color={color} focused={focused} />,
         }}
       />
       <CompanyBottomTab.Screen
         name="Add Applications"
         component={AddApplicationsNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="add" color={color} />,
+          tabBarIcon: ({ focused, color }) => <TabBarIcon name="add" color={color} focused={focused} />,
           // tabBarButton: ()=>{return(<Image style={{backgroundColor: "pink", borderRadius: 30, width: 40, height: 40, position: "absolute", marginHorizontal: 159}} source={icons.add}/>)}
         }}
       />
@@ -52,14 +54,14 @@ function CompanyBottomTabNavigator() {
         name="Students"
         component={StudentsNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="person_search" color={color} />,
+          tabBarIcon: ({ focused, color }) => <TabBarIcon name="person_search" color={color} focused={focused} />,
         }}
       />
       <CompanyBottomTab.Screen
         name="Profile"
         component={CompanyProfileNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="profile" color={color} />,
+          tabBarIcon: ({ focused, color }) => <TabBarIcon name="profile" color={color} focused={focused} />,
         }}
       />
     </CompanyBottomTab.Navigator>
@@ -80,30 +82,30 @@ function StudentBottomTabNavigator() {
         name="Dashboard"
         component={StudentDashboardNavigator}
         options={{
-          // tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
+          tabBarIcon: ({ focused, color }) => <TabBarIcon name="dashboard" color={color} focused={focused} />,
         }}
       />
       <StudentBottomTab.Screen
         name="Jobs"
         component={JobsNavigator}
         options={{
-          // tabBarIcon: ({ color }) => <TabBarIcon name="plus" color={color} />,
+          tabBarIcon: ({ focused, color }) => <TabBarIcon name="jobs_search" color={color} focused={focused} />,
         }}
       />
       <StudentBottomTab.Screen
         name="Companies"
         component={CompaniesNavigator}
         options={{
-          // tabBarIcon: ({ color }) => <TabBarIcon name="notes-medical" color={color} />,
+          tabBarIcon: ({ focused, color }) => <TabBarIcon name="company" color={color} focused={focused} />,
         }}
       />
-      {/* <StudentBottomTab.Screen
+      <StudentBottomTab.Screen
         name="Profile"
         component={StudentProfileNavigator}
         options={{
-          // tabBarIcon: ({ color }) => <TabBarIcon name="user-alt" color={color} />,
+          tabBarIcon: ({ focused, color }) => <TabBarIcon name="profile" color={color} focused={focused} />,
         }}
-      /> */}
+      />
     </StudentBottomTab.Navigator>
   );
 }
@@ -140,7 +142,7 @@ function JobsNavigator() {
       <JobsStack.Screen
         name="JobsScreen"
         component={JobsScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
+        options={{ headerShown: false }}
       />
     </JobsStack.Navigator>
   );
@@ -154,19 +156,7 @@ function CompaniesNavigator() {
       <CompaniesStack.Screen
         name="CompaniesScreen"
         component={CompaniesScreen}
-        options={{ 
-          headerTitle: 'Applications List',
-          headerTintColor: "white",
-          headerStatusBarHeight: 30,
-          headerTitleAlign: "center",
-          headerStyle: {
-            backgroundColor: "red",
-            borderBottomLeftRadius: 60,
-            borderBottomRightRadius: 50,
-            borderColor: "red",
-            height: 90,
-
-        } }}
+        options={{ headerShown: false }}
       />
     </CompaniesStack.Navigator>
   );
@@ -176,28 +166,31 @@ const StudentProfileStack = createStackNavigator();
 
 function StudentProfileNavigator() {
   return (
-    <StudentProfileStack.Navigator mode="card">
+    // <StudentProfileStack.Navigator mode="card">
+    <StudentProfileStack.Navigator>
       <StudentProfileStack.Screen
         name="StudentProfileScreen"
         component={StudentProfileScreen}
         options={({ navigation, route }) => ({
-          title: 'StudentProfile',
+          title: 'My Profile',
           headerStyle: {
-            backgroundColor: '#f4511e',
+            backgroundColor: '#fff',
           },
-          headerTintColor: '#fff',
+          headerTintColor: '#000',
           headerTitleStyle: {
-            fontWeight: 'bold',
+            // fontWeight: 'bold',
+            textAlign: "center"
           },
-          headerRight: () => (
-            <Button
-              onPress={() => navigation.navigate('EditStudentProfile')}
-              info
-            ><Text>Edit</Text></Button>
-          ),
-          })} />
-          <StudentProfileStack.Screen
-           name="EditStudentProfile" component={EditStudentProfileInfo}/>
+        //   headerRight: () => (
+        //     <Button
+        //       // onPress={() => navigation.navigate('EditStudentProfile')}
+        //       info
+        //     ><Text>Edit</Text></Button>
+        //   ),
+          })}
+          />
+          {/* <StudentProfileStack.Screen
+           name="EditStudentProfile" component={EditStudentProfileInfo}/> */}
     </StudentProfileStack.Navigator>
   );
 }

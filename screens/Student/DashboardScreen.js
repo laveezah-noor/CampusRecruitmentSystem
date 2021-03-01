@@ -1,35 +1,94 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Button } from 'react-native';
-import {H1, H2, List, ListItem, Left, Body, Right} from 'native-base'
+import React from 'react';
+import { View, 
+  Text, TouchableOpacity, Image, StyleSheet,  } from 'react-native';
+import {H1, H2, Card, CardItem } from 'native-base'
+import {icons} from '/home/home/Development/React Native/RecruitmentSystem/constants/index'
 
-export default function StudentDashboardScreen({cmd}) {
+function CardMade({icon, text}) {
+  return (
+    <Card style={styles.container}>
+      <CardItem style={styles.icon}>
+      <Image source={icons[icon]} resizeMode="contain" 
+      style={{width: 30,
+       height: 30,
+       }}/>
+      </CardItem>
+      <CardItem style={styles.cardContent}>
+      <Text style={styles.cardText}>{text}</Text>
+      </CardItem>
+    </Card>
+  );
+}
+
+export default function StudentDashboardScreen({navigation}) {
+  const name = 'Dummy'
+ardHandler = (place) => {
+    console.log(place)
+    navigation.navigate(place)    
+  }
   return(
     <View style={{
-      // backgroundColor: "red",
       justifyContent: "center",
-      // alignItems: "center",
-      padding: 5,
+      paddingVertical: 100,
+      backgroundColor: "#fff",
+      paddingHorizontal: 30,
+      flex: 1
     }}>
+      <H2 style={{
+        color: "#DCC3FE",
+        fontWeight: "bold",
+        fontFamily: "Cochin"
+      }}>Hello, {name}</H2>
       <H1
-        style={{textAlign: "center"}}
+        style={{
+          paddingVertical: 20,
+          fontWeight: "bold",
+      }}
         >Dashboard</H1>
-        <View>
-            <H2>Applications</H2>
-            <List>
-            <ListItem avatar>
-              <Left>
-                <Thumbnail source={{ uri: 'Image URL' }} />
-              </Left>
-              <Body>
-                <Text>Kumar Pratik</Text>
-                <Text note>Doing what you like will always keep you happy . .</Text>
-              </Body>
-              <Right>
-                <Text note>3:43 pm</Text>
-              </Right>
-            </ListItem>
-          </List>
+        <View style={{flexDirection: "row", paddingHorizontal: 5}}>
+          <TouchableOpacity onPress={()=>cardHandler('Applications')}><CardMade icon="file" text="My Applications" badge="200K"/></TouchableOpacity>
+          <TouchableOpacity onPress={()=>cardHandler('Applications')}><CardMade icon="group" text="New Application" badge="200K"/></TouchableOpacity>
+        </View>
+        <View style={{flexDirection: "row", paddingHorizontal: 5}}>
+          <TouchableOpacity onPress={()=>cardHandler('Students')}><CardMade icon="person_search" text="Students List" badge="200K"/></TouchableOpacity>
+          <TouchableOpacity onPress={()=>cardHandler('Students')}><CardMade icon="profile" text="Profile" badge="200K"/></TouchableOpacity>
         </View>
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    width: 138,
+    height: 150,
+    paddingVertical: 18,
+    borderRadius: 15,
+    marginRight: 10,
+    backgroundColor: "#FBECFF",
+  },
+  icon:{
+    backgroundColor: "transparent",
+    marginTop: 5
+  },
+  cardContent: {
+    flexDirection: "column",
+    justifyContent: "center",
+    backgroundColor: "transparent"
+  },
+  cardText:{
+    fontSize: 15,
+    textAlign: "center",
+    fontFamily: "Cochin",
+  },
+  cardBadge:{
+    backgroundColor: "#48ba95",
+    borderRadius: 50,
+    textAlign: "center",
+    height: 20,
+    paddingHorizontal: 5,
+    fontSize: 13,
+    marginTop: 5,
+  }
+});
+

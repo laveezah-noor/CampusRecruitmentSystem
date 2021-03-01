@@ -1,7 +1,6 @@
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-
 import CompanyRegisterScreen from '../screens/Company/RegisterScreen'
 import StudentRegisterScreen from '../screens/Student/RegisterScreen'
 import {CompanyBottomTabNavigator, StudentBottomTabNavigator} from './BottomTabNavigator'
@@ -23,7 +22,7 @@ const Stack = createStackNavigator();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="StudentRoot">
       <Stack.Screen name="Login" component={LoginNavigator} options={{ title: 'Hell' }} />
       <Stack.Screen name="StudentRegister" component={StudentRegisterScreen} options={{ title: 'All Requests' }} />
       <Stack.Screen name="CompanyRegister" component={CompanyRegisterScreen} options={{ title: 'All Requests' }} />

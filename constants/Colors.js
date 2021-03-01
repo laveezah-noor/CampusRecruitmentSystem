@@ -8,7 +8,7 @@ const black = "#1E1F20";
 const white = "#FFFFFF";
 const lightGray = "#F5F5F6";
 const darkGray = "#898C95"
-const primary = "#FC6D3F";
+const primary = "#8243D2";
 const secondary = '#CDCDD2'
 export default {
   light: {
