@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Button } from 'react-native';
 import {H1, Thumbnail, List, ListItem, Left, Body, Right} from 'native-base'
 
-export default function ApplicationsScreen({cmd}) {
+export default function AddApplicationsScreen({cmd}) {
   return(
     <View style={{
       // backgroundColor: "red",
