@@ -1,18 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, TouchableOpacity } from 'react-native';
 import auth from '@react-native-firebase/auth';
-import {Form, Item, Label, Input, H1} from 'native-base'
+import { Card, Form, Item, Label, Input, H1} from 'native-base'
 
 export default function CompanyLoginScreen({navigation}) {
-    const Login = () => {
-        navigation.navigate('CompanyDashboard')
-    }
-    return(
-    <View style={{
-      // backgroundColor: "red",
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const Login = () => {
+    auth().signInWithEmailAndPassword(email, password)
+  .then((userCredential) => {
+    // Signed in
+    var user = userCredential.user;
+    console.log(user)
+    navigation.navigate('CompanyRoot', {
+      user: user,
+      type: "company"
+    })
+    // ...
+  })
+  .catch((error) => {
+    console.log(error)
+    if (error){()=>alert("There is no user corresponding to these values.")}
+  });
+  }
+  return(
+    <Card style={{
       justifyContent: "center",
-      // alignItems: "center",
       padding: 5,
+      borderRadius:5,
+      marginHorizontal: 15,
     }}>
       <H1
         style={{textAlign: "center"}}
@@ -24,16 +40,24 @@ export default function CompanyLoginScreen({navigation}) {
           }}>
             <Item stackedLabel>
               <Label>Company Email Address</Label>
-              <Input />
+              <Input onChangeText={(txt)=>setEmail(txt)} />
             </Item>
             <Item stackedLabel>
               <Label>Password</Label>
-              <Input />
+              <Input onChangeText={(txt)=>setPassword(txt)} />
             </Item>
-          </Form>
-          <Text>Don't have an account?</Text>
-          <TouchableOpacity onPress={()=>navigation.navigate('CompanyRegister')}><Text>Register Now</Text></TouchableOpacity>
+            <View
+              style={{
+                flexDirection: "row",
+                padding: 5,
+                paddingHorizontal: 15,
+                opacity: 0.5
+              }}>
+              <Text>Don't have an account?    </Text>
+              <TouchableOpacity onPress={()=>navigation.navigate('CompanyRegister')}><Text>Register Now</Text></TouchableOpacity>
+            </View>
+           </Form>
           <Button title="Login" onPress={()=>Login()}/>
-    </View>
+    </Card>
   )
 }

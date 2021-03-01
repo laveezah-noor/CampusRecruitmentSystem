@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button } from 'react-native';
 import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
 import {Form, Item, Label, Input, H1} from 'native-base'
 
-export default function StudentRegisterScreen({cmd}) {
+export default function StudentRegisterScreen({navigation}) {
     const [name, setName] = useState('');
     const [gender, setGender] = useState('');
     const [dob, setDob] = useState('');
@@ -12,7 +13,7 @@ export default function StudentRegisterScreen({cmd}) {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     
-    const Register = ({navigation}) => {
+    const Register = () => {
         if (name == "" || gender == "" || dob == "" || email == "" || contact == "" || password == "" || confirmPassword == ""){
             console.log('Required to fill all Inputs')
         } else {
@@ -23,7 +24,19 @@ export default function StudentRegisterScreen({cmd}) {
                 .createUserWithEmailAndPassword(email, password)
                 .then(() => {
                     console.log('Student account created & signed in!');
-                    navigation.navigate("StudentLogin")
+                    const key = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
+                    database()
+                    .ref('/').child(`Students/${key}`)
+                    .set({
+                      name: name,
+                      dob: dob,
+                      gender: gender,
+                      email: email,
+                      contact: contact,
+                      password: password
+                      })
+                    .then(() => navigation.navigate("Login", {
+                      screen: 'Student',}))
                 })
                 .catch(error => {
                     if (error.code === 'auth/email-already-in-use') {

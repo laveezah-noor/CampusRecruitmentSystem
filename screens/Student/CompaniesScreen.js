@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button } from 'react-native';
-import {H1, H2, List, ListItem, Left, Body, Right} from 'native-base'
+import {H1, H2, List, ListItem, Left, Body, Right, Thumbnail} from 'native-base'
+import database from '@react-native-firebase/database';
 
-export default function CompanyDashboardScreen({cmd}) {
+export default function CompaniesScreen({cmd}) {
+  const Companies = database().ref('/Companies')
+  .once('value')
+  .then(snapshot => {
+    console.log('User data: ', snapshot.val());
+  });
   return(
     <View style={{
       // backgroundColor: "red",
@@ -16,10 +22,10 @@ export default function CompanyDashboardScreen({cmd}) {
         <View>
             <H2>Applications</H2>
             <List>
-            <ListItem avatar>
+            <ListItem>
               {/* <Left>
-                <Thumbnail source={{ uri: 'Image URL' }} /> */}
-              {/* </Left> */}
+                <Thumbnail />
+              </Left> */}
               <Body>
                 <Text>Kumar Pratik</Text>
                 <Text note>Doing what you like will always keep you happy . .</Text>

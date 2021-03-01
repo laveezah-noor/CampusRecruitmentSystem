@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button } from 'react-native';
 import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
 import {Form, Item, Label, Input, H1} from 'native-base'
 
-export default function CompanyRegisterScreen({cmd}) {
+export default function CompanyRegisterScreen({navigation}) {
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
@@ -12,7 +13,7 @@ export default function CompanyRegisterScreen({cmd}) {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     
-    const Register = ({navigation}) => {
+    const Register = () => {
         if (name == "" || address == "" || city == "" || email == "" || contact == "" || password == "" || confirmPassword == ""){
             console.log('Required to fill all Inputs')
         } else {
@@ -23,7 +24,20 @@ export default function CompanyRegisterScreen({cmd}) {
                 .createUserWithEmailAndPassword(email, password)
                 .then(() => {
                     console.log('Company account created & signed in!');
-                    navigation.navigate("CompanyLogin")
+                    const key = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
+                    database()
+                    .ref('/').child(`Companies/${key}`)
+                    .set({
+                      name: name,
+                      address: address,
+                      city: city,
+                      email: email,
+                      contact: contact,
+                      password: password
+                      })
+                    .then(() => navigation.navigate("Login", {
+                      screen: 'Company'}))
+                    
                 })
                 .catch(error => {
                     if (error.code === 'auth/email-already-in-use') {
