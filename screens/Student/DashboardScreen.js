@@ -23,10 +23,12 @@ function CardMade({icon, text}) {
 
 export default function StudentDashboardScreen({navigation}) {
   const [name, setName] = React.useState('')
-  database().ref('/Current_user').once('value', (snapshot)=>
-    // console.log('Current: ',snapshot.val()),
+  database().ref('/Current_user').once('value', (snapshot)=>{
+    console.log('Current: ',snapshot.val()),
     setName(snapshot.val().name)
-  )
+  
+  });
+    
   const cardHandler = (place) => {
     console.log(place)
     navigation.navigate(place)    
@@ -51,12 +53,12 @@ export default function StudentDashboardScreen({navigation}) {
       }}
         >Dashboard</H1>
         <View style={{flexDirection: "row", paddingHorizontal: 5}}>
-          <TouchableOpacity onPress={()=>cardHandler('Applications')}><CardMade icon="file" text="My Applications" badge="200K"/></TouchableOpacity>
-          <TouchableOpacity onPress={()=>cardHandler('Applications')}><CardMade icon="group" text="New Application" badge="200K"/></TouchableOpacity>
+          <TouchableOpacity onPress={()=>cardHandler('Jobs')}><CardMade icon="work" text="Jobs List"/></TouchableOpacity>
+          <TouchableOpacity onPress={()=>cardHandler('Jobs')}><CardMade icon="file" text="Apply"/></TouchableOpacity>
         </View>
         <View style={{flexDirection: "row", paddingHorizontal: 5}}>
-          <TouchableOpacity onPress={()=>cardHandler('Students')}><CardMade icon="person_search" text="Students List" badge="200K"/></TouchableOpacity>
-          <TouchableOpacity onPress={()=>cardHandler('Students')}><CardMade icon="profile" text="Profile" badge="200K"/></TouchableOpacity>
+          <TouchableOpacity onPress={()=>cardHandler('Companies')}><CardMade icon="company" text="Company List"/></TouchableOpacity>
+          <TouchableOpacity onPress={()=>cardHandler('Profile')}><CardMade icon="profile" text="Profile"/></TouchableOpacity>
         </View>
     </View>
   )

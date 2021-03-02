@@ -3,30 +3,30 @@ import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Content, Card, CardItem, Thumbnail, Label, H1, List, ListItem, Body } from "native-base";
 import {icons} from '/home/home/Development/React Native/RecruitmentSystem/constants/index';
 import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
 
 export default function StudentProfileScreen ({navigation}){
-    const name = 'Anabia Noor'
-    const gender = 'Female'
-    const dob = '13-1-2002'
-    const email = ''
-    const contact = ''
-  
-    // React.useEffect(() => {    
-    //   // Update the document title using the browser API    
-    //   database().ref('/Current User')
-    //   .on('value', (snapshot) => {
-    //     snapshot.forEach((childSnapshot) => {
-    //       var childKey = childSnapshot.key;
-    //       var childData = childSnapshot.val();
-    //       Jobs.push(childData) 
-    //       // console.log("Jobs: ",(Jobs))
-    //     });
-    //   });
-    // })
-  
-    
-    // console.log("THis....",Jobs)
-        
+    const [name, setName] = useState('');
+    const [gender, setGender] = useState('');
+    const [email, setEmail] = useState('');
+    const [contact, setContact] = useState('');
+    const [dob, setDob] = useState('');
+  database().ref('/Current_user').once('value', (snapshot=>{
+    var Current_user = snapshot.val()
+    console.log('Current User: ', Current_user)
+    setName(Current_user.name)
+    setGender(Current_user.gender)
+    setEmail(Current_user.email)
+    setContact(Current_user.contact)
+    setDob(Current_user.dob)
+    console.log(name, gender, email, contact)
+  }))
+  let genderIcon = '';
+  if (gender === 'Female') {
+    genderIcon = icons.female
+  } else {
+    genderIcon = icons.male
+  }    
     const logOut = () => {
       auth().signOut().then(() => {
         alert('Signed Out')
@@ -44,7 +44,7 @@ export default function StudentProfileScreen ({navigation}){
         <View style={{flexDirection: "row"}}>
           <Text style={styles.profileName}>{name}</Text>
           <Image 
-            source={icons.female}
+            source={genderIcon}
             style={{width: 30, height: 30, marginTop: 8, marginLeft: 120, position: "absolute"}} />
         </View>
       </CardItem>
