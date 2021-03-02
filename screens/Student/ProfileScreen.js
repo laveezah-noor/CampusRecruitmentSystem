@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import { View, Image, Text, StyleSheet } from "react-native";
-import { Content, Card, Button, CardItem, Thumbnail, Label, H1, List, ListItem, Body } from "native-base";
+import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Content, Card, CardItem, Thumbnail, Label, H1, List, ListItem, Body } from "native-base";
 import {icons} from '/home/home/Development/React Native/RecruitmentSystem/constants/index';
 import auth from '@react-native-firebase/auth';
 
@@ -10,8 +10,26 @@ export default function StudentProfileScreen ({navigation}){
     const dob = '13-1-2002'
     const email = ''
     const contact = ''
+  
+    // React.useEffect(() => {    
+    //   // Update the document title using the browser API    
+    //   database().ref('/Current User')
+    //   .on('value', (snapshot) => {
+    //     snapshot.forEach((childSnapshot) => {
+    //       var childKey = childSnapshot.key;
+    //       var childData = childSnapshot.val();
+    //       Jobs.push(childData) 
+    //       // console.log("Jobs: ",(Jobs))
+    //     });
+    //   });
+    // })
+  
+    
+    // console.log("THis....",Jobs)
+        
     const logOut = () => {
       auth().signOut().then(() => {
+        alert('Signed Out')
         // Sign-out successful.
       }).catch((error) => {
         // An error happened.
@@ -28,82 +46,44 @@ export default function StudentProfileScreen ({navigation}){
             style={{width: 30, height: 30, marginTop: 8, marginLeft: 120, position: "absolute"}} />
         </View>
       </CardItem>
-      <Card style={{backgroundColor: "#fff"}}>
-        <CardItem >
+      <View style={{backgroundColor: "#F6EDF6", height: 500}}>
+        <CardItem style={{backgroundColor: "transparent"}}>
           <View style={[styles.item, { borderLeftWidth: 0, borderRightWidth: 0, borderBottomWidth: 0}]}>
             <Label style={styles.label}>Date Of Birth</Label>
             <Text style={styles.labelText}>{dob}</Text>
           </View>
         </CardItem>
-        <CardItem >
+        <CardItem style={{backgroundColor: "transparent"}}>
           <View style={[styles.item, { borderLeftWidth: 0, borderRightWidth: 0, borderBottomWidth: 0}]}>
             <Label style={styles.label}>Email Address</Label>
             <Text style={styles.labelText}>{email}</Text>
           </View>
         </CardItem>
-        <CardItem >
+        <CardItem style={{backgroundColor: "transparent"}}>
           <View style={[styles.item, { borderLeftWidth: 0, borderRightWidth: 0, borderBottomWidth: 0}]}>
             <Label style={styles.label}>Contact</Label>
             <Text style={styles.labelText}>{contact}</Text>
           </View>
         </CardItem>
-        <CardItem >
+        <CardItem style={{backgroundColor: "transparent"}}>
           <View style={[styles.item, { borderLeftWidth: 0, borderRightWidth: 0, borderBottomWidth: 0}]}>
           </View>
         </CardItem>
-      </Card>
-      <Button onPress={()=>logOut()}><Text>Logout</Text></Button>
+      <View style={{alignItems: "center"}}>
+        <TouchableOpacity
+       onPress={()=>logOut()}
+       style={{
+         backgroundColor: "#8243D2",
+         padding: 12,
+         borderRadius: 10
+       }}><Text style={{color: "#fff", fontSize: 15}}>Logout</Text></TouchableOpacity>
+      </View>
+      </View>
+      
+      
     </View>
   )
 }
-      // </View>
-        // <View>
-        //     <View>
-        //         <Thumbnail/>
-        //         <H1>Name</H1>
-        //         <View>
-        //             <Body>
-        //                 <Text>500</Text>
-        //                 <Text note>Total Applications</Text>
-        //             </Body>
-        //         </View>
-        //     </View>
-        //     <View>
-        //     <Item
-        //     style={{
-        //       backgroundColor: "#d3d3d3",
-        //       borderRadius: 6,}}>
-        //       <Body>
-        //         <Text style={{fontSize: 18}}>Email</Text>
-        //         <View style={{flexDirection: "row"}}>
-        //           <Text note>email address</Text>
-        //         </View>
-        //       </Body>
-        //     </Item>
-        //     <Item
-        //     style={{
-        //       backgroundColor: "#d3d3d3",
-        //       borderRadius: 6,}}>
-        //       <Body>
-        //         <Text style={{fontSize: 18}}>Phone</Text>
-        //         <View style={{flexDirection: "row"}}>
-        //           <Text note>email address</Text>
-        //         </View>
-        //       </Body>
-        //     </Item>
-        //     <Item
-        //     style={{
-        //       backgroundColor: "#d3d3d3",
-        //       borderRadius: 6,}}>
-        //       <Body>
-        //         <Text style={{fontSize: 18}}>Date Of Birth</Text>
-        //         <View style={{flexDirection: "row"}}>
-        //           <Text note>email address</Text>
-        //         </View>
-        //       </Body>
-        //     </Item>
-        //     </View>
-        // </View>
 
 const styles = StyleSheet.create({
   container: {

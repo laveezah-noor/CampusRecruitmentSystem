@@ -11,6 +11,8 @@ export const dashboard = require("../assets/Icons/dashboard.png")
 export const jobs_search = require("../assets/Icons/jobs_search.png")
 export const male = require("../assets/Icons/male.png")
 export const female = require("../assets/Icons/female.png")
+export const back_black = require("../assets/Icons/back_black.png")
+export const back_white = require("../assets/Icons/back_white.png")
 
 export default{
     home,
@@ -25,5 +27,7 @@ export default{
     dashboard,
     jobs_search,
     male,
-    female
+    female,
+    back_black,
+    back_white
 }

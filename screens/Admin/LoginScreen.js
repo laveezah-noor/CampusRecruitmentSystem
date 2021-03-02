@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, TouchableOpacity } from 'react-native';
 import auth from '@react-native-firebase/auth';
-import database from '@react-native-firebase/database'
 import { Card, Form, Item, Label, Input, H1} from 'native-base'
 
 export default function CompanyLoginScreen({navigation}) {
@@ -13,7 +12,6 @@ export default function CompanyLoginScreen({navigation}) {
     // Signed in
     var user = userCredential.user;
     console.log(user)
-    database.ref('./Current_user').set(user)
     navigation.navigate('CompanyRoot', {
       user: user,
       type: "company"
