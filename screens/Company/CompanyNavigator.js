@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-import {Button, Text} from 'native-base'
+import {TouchableOpacity, Image} from 'react-native'
 import ApplicationsScreen from './ApplicationsScreen'
 import CompanyDashboardScreen from './DashboardScreen';
 import AddApplicationsScreen from './AddApplicationsScreen';

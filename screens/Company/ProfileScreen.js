@@ -3,33 +3,29 @@ import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Content, Card, CardItem, Thumbnail, Label, H1, List, ListItem, Body } from "native-base";
 import {icons} from '/home/home/Development/React Native/RecruitmentSystem/constants/index';
 import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
 
 export default function StudentProfileScreen ({navigation}){
-    const name = 'Microsoft'
-    const location = 'Karachi'
-    const category = 'Technologies'
-    const email = 'microsoft@microsoft.com'
-    const contact = ''
-  
-    // React.useEffect(() => {    
-    //   // Update the document title using the browser API    
-    //   database().ref('/Current User')
-    //   .on('value', (snapshot) => {
-    //     snapshot.forEach((childSnapshot) => {
-    //       var childKey = childSnapshot.key;
-    //       var childData = childSnapshot.val();
-    //       Jobs.push(childData) 
-    //       // console.log("Jobs: ",(Jobs))
-    //     });
-    //   });
-    // })
-  
-    
-    // console.log("THis....",Jobs)
-        
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [email, setEmail] = useState('');
+  const [contact, setContact] = useState('');
+  const [category, setCategory] = useState('');
+  database().ref('/Current_user').once('value', (snapshot)=>{
+    var Current_user = snapshot.val()
+    console.log('Current: ',snapshot.val())
+    setName(Current_user.name)
+    setAddress(Current_user.address)
+    setEmail(Current_user.email)
+    setContact(Current_user.contact)
+    setCategory(Current_user.category)
+    console.log(name)   
+  })    
     const logOut = () => {
       auth().signOut().then(() => {
         alert('Signed Out')
+        database().ref('/Current_user').set(null)
+        navigation.navigate('Login')
         // Sign-out successful.
       }).catch((error) => {
         // An error happened.
@@ -37,20 +33,17 @@ export default function StudentProfileScreen ({navigation}){
     }
   return(
     <View>       
-        <CardItem  style={{ height: 250, flexDirection: "column", justifyContent: "center" }}>
+        <CardItem  style={{ height: 200, flexDirection: "column", justifyContent: "center" }}>
         <View style={styles.profile}><Thumbnail square style={{resizeMode:"contain"}} source={icons.person} /></View>
         <View style={{flexDirection: "row"}}>
           <Text style={styles.profileName}>{name}</Text>
-          <Image 
-            source={icons.female}
-            style={{width: 30, height: 30, marginTop: 8, marginLeft: 120, position: "absolute"}} />
         </View>
       </CardItem>
       <View style={{backgroundColor: "#F6EDF6", height: 500}}>
         <CardItem style={{backgroundColor: "transparent"}}>
           <View style={[styles.item, { borderLeftWidth: 0, borderRightWidth: 0, borderBottomWidth: 0}]}>
-            <Label style={styles.label}>Date Of Birth</Label>
-            <Text style={styles.labelText}>{dob}</Text>
+            <Label style={styles.label}>Category</Label>
+            <Text style={styles.labelText}>{category}</Text>
           </View>
         </CardItem>
         <CardItem style={{backgroundColor: "transparent"}}>
@@ -63,6 +56,12 @@ export default function StudentProfileScreen ({navigation}){
           <View style={[styles.item, { borderLeftWidth: 0, borderRightWidth: 0, borderBottomWidth: 0}]}>
             <Label style={styles.label}>Contact</Label>
             <Text style={styles.labelText}>{contact}</Text>
+          </View>
+        </CardItem>
+        <CardItem style={{backgroundColor: "transparent"}}>
+          <View style={[styles.item, { borderLeftWidth: 0, borderRightWidth: 0, borderBottomWidth: 0}]}>
+            <Label style={styles.label}>Address</Label>
+            <Text style={styles.labelText}>{address}</Text>
           </View>
         </CardItem>
         <CardItem style={{backgroundColor: "transparent"}}>

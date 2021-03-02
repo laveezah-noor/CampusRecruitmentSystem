@@ -3,6 +3,7 @@ import { View,
   Text, TouchableOpacity, Image, StyleSheet,  } from 'react-native';
 import {H1, H2, Card, CardItem } from 'native-base'
 import {icons} from '/home/home/Development/React Native/RecruitmentSystem/constants/index'
+import database from '@react-native-firebase/database'
 
 function CardMade({icon, text}) {
   return (
@@ -21,11 +22,15 @@ function CardMade({icon, text}) {
 }
 
 export default function StudentDashboardScreen({navigation}) {
-  const name = 'Dummy'
-ardHandler = (place) => {
+  const [name, setName] = React.useState('')
+  database().ref('/Current_user').once('value', (snapshot)=>
+    // console.log('Current: ',snapshot.val()),
+    setName(snapshot.val().name)
+  )
+  const cardHandler = (place) => {
     console.log(place)
     navigation.navigate(place)    
-  }
+  };
   return(
     <View style={{
       justifyContent: "center",

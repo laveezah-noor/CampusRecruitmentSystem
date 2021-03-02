@@ -5,7 +5,7 @@ import CompanyRegisterScreen from '../screens/Company/RegisterScreen'
 import StudentRegisterScreen from '../screens/Student/RegisterScreen'
 import {CompanyBottomTabNavigator, StudentBottomTabNavigator} from './BottomTabNavigator'
 import LoginNavigator from './TopTabNavigator'
-
+import database from '@react-native-firebase/database'
 // If you are not familiar with React Navigation, we recommend going through the
 // "Fundamentals" guide: https://reactnavigation.org/docs/getting-started
 export default function Navigation() {
@@ -21,8 +21,22 @@ export default function Navigation() {
 const Stack = createStackNavigator();
 
 function RootNavigator() {
+  const [route, setRoute] = React.useState('');
+  database().ref('/Current_user').once('value', snapshot =>{
+    if (Current_user === null){
+      setRoute('Login')
+    } else {
+      if(Current_user.type === 'Student'){
+        setRoute('StudentRoot')
+      }
+      else if (Current_user.type === 'Company'){
+        setRoute('CompanyRoot')
+      }
+    }
+  })
+    
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Login">
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={route}>
       <Stack.Screen name="Login" component={LoginNavigator} options={{ title: 'Hell' }} />
       <Stack.Screen name="StudentRegister" component={StudentRegisterScreen} options={{ title: 'All Requests' }} />
       <Stack.Screen name="CompanyRegister" component={CompanyRegisterScreen} options={{ title: 'All Requests' }} />

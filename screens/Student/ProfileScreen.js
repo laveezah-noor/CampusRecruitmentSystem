@@ -30,6 +30,8 @@ export default function StudentProfileScreen ({navigation}){
     const logOut = () => {
       auth().signOut().then(() => {
         alert('Signed Out')
+        database().ref('/Current_user').set(null)
+        navigation.navigate('Login')
         // Sign-out successful.
       }).catch((error) => {
         // An error happened.

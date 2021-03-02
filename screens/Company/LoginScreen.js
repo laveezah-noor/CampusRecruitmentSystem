@@ -12,13 +12,28 @@ export default function CompanyLoginScreen({navigation}) {
   .then((userCredential) => {
     // Signed in
     var user = userCredential.user;
-    console.log(user)
-    database.ref('./Current_user').set(user)
-    navigation.navigate('CompanyRoot', {
-      user: user,
-      type: "company"
-    })
-    // ...
+    // console.log(user)
+    var all = []
+    database().ref('/Companies')
+    .on('value', (snapshot) => {
+      snapshot.forEach((childSnapshot) => {
+        var childKey = childSnapshot.key;
+        var childData = childSnapshot.val();
+        all.push(childData)
+        console.log(all)
+        for (let i = 0; i < all.length; i++) {
+          const element = all[i];
+          if (element.email === email){
+          console.log('This Is   ',element)
+          database().ref('/Current_user').set(element)
+          database().ref('/Current_user').once('value', (snapshot)=>
+          console.log('Current: ',snapshot.val())
+        )};
+        }
+      });
+    });
+    navigation.navigate('CompanyRoot')
+    
   })
   .catch((error) => {
     console.log(error)

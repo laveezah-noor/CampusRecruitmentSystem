@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, 
   Text, TouchableOpacity, Image, StyleSheet,  } from 'react-native';
 import {H1, H2, Card, CardItem } from 'native-base'
 import {icons} from '/home/home/Development/React Native/RecruitmentSystem/constants/index'
-
-function CardMade({icon, text, badge}) {
+import database from '@react-native-firebase/database';
+function CardMade({icon, text}) {
   return (
     <Card style={styles.container}>
       <CardItem style={styles.icon}>
@@ -21,11 +21,17 @@ function CardMade({icon, text, badge}) {
 }
 
 export default function CompanyDashboardScreen({navigation}) {
-  const name = 'MangoBaz'
-ardHandler = (place) => {
+  const [name, setName] = useState('')
+  database().ref('/Current_user').once('value', (snapshot)=>{
+        console.log('Current: ',snapshot.val()),
+    setName(snapshot.val().name)
+  }
+
+  )
+  const cardHandler = (place) => {
     console.log(place)
     navigation.navigate(place)    
-  }
+  };
   return(
     <View style={{
       justifyContent: "center",
@@ -37,7 +43,8 @@ ardHandler = (place) => {
       <H2 style={{
         color: "#DCC3FE",
         fontWeight: "bold",
-        fontFamily: "Cochin"
+        fontFamily: "Cochin",
+        textTransform: "capitalize"
       }}>Hello, {name}</H2>
       <H1
         style={{
@@ -47,11 +54,11 @@ ardHandler = (place) => {
         >Dashboard</H1>
         <View style={{flexDirection: "row", paddingHorizontal: 5}}>
           <TouchableOpacity onPress={()=>cardHandler('Applications')}><CardMade icon="file" text="My Applications" badge="200K"/></TouchableOpacity>
-          <TouchableOpacity onPress={()=>cardHandler('Applications')}><CardMade icon="group" text="New Application" badge="200K"/></TouchableOpacity>
+          <TouchableOpacity onPress={()=>cardHandler('Add Applications')}><CardMade icon="group" text="New Application" badge="200K"/></TouchableOpacity>
         </View>
         <View style={{flexDirection: "row", paddingHorizontal: 5}}>
           <TouchableOpacity onPress={()=>cardHandler('Students')}><CardMade icon="person_search" text="Students List" badge="200K"/></TouchableOpacity>
-          <TouchableOpacity onPress={()=>cardHandler('Students')}><CardMade icon="profile" text="Profile" badge="200K"/></TouchableOpacity>
+          <TouchableOpacity onPress={()=>cardHandler('Profile')}><CardMade icon="profile" text="Profile" badge="200K"/></TouchableOpacity>
         </View>
     </View>
   )
