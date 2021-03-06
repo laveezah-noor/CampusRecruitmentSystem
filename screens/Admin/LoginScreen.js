@@ -51,7 +51,7 @@ export default function AdminLoginScreen({navigation}) {
                 opacity: 0.5
               }}>
               <Text>Request to be Admin?    </Text>
-              <TouchableOpacity onPress={()=>navigation.navigate('CompanyRegister')}><Text>Register Now</Text></TouchableOpacity>
+              <TouchableOpacity onPress={()=>navigation.navigate('AdminRequest')}><Text>Register Now</Text></TouchableOpacity>
             </View>
            </Form>
           <Button title="Login" onPress={()=>Login()}/>

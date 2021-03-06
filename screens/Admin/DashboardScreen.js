@@ -20,7 +20,7 @@ function CardMade({icon, text}) {
   );
 }
 
-export default function CompanyDashboardScreen({navigation}) {
+export default function AdminDashboardScreen({navigation}) {
   const [name, setName] = useState('')
   database().ref('/Current_user').once('value', (snapshot)=>
     console.log('Current: ',snapshot.val()),
@@ -51,12 +51,12 @@ export default function CompanyDashboardScreen({navigation}) {
       }}
         >Dashboard</H1>
         <View style={{flexDirection: "row", paddingHorizontal: 5}}>
-          <TouchableOpacity onPress={()=>cardHandler('Applications')}><CardMade icon="file" text="My Applications" badge="200K"/></TouchableOpacity>
-          <TouchableOpacity onPress={()=>cardHandler('Add Applications')}><CardMade icon="group" text="New Application" badge="200K"/></TouchableOpacity>
+          <TouchableOpacity onPress={()=>cardHandler('Companies')}><CardMade icon="company" text="Companies"/></TouchableOpacity>
+          <TouchableOpacity onPress={()=>cardHandler('Students')}><CardMade icon="person" text="Students"/></TouchableOpacity>
         </View>
         <View style={{flexDirection: "row", paddingHorizontal: 5}}>
-          <TouchableOpacity onPress={()=>cardHandler('Students')}><CardMade icon="person_search" text="Students List" badge="200K"/></TouchableOpacity>
-          <TouchableOpacity onPress={()=>cardHandler('Profile')}><CardMade icon="profile" text="Profile" badge="200K"/></TouchableOpacity>
+          <TouchableOpacity onPress={()=>cardHandler('Requests')}><CardMade icon="file" text="Requests"/></TouchableOpacity>
+          <TouchableOpacity onPress={()=>cardHandler('Applications')}><CardMade icon="work" text="Applications"/></TouchableOpacity>
         </View>
     </View>
   )
