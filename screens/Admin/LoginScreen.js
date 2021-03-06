@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, Button, TouchableOpacity } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import { Card, Form, Item, Label, Input, H1} from 'native-base'
 
-export default function CompanyLoginScreen({navigation}) {
+export default function AdminLoginScreen({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const Login = () => {
@@ -12,10 +12,7 @@ export default function CompanyLoginScreen({navigation}) {
     // Signed in
     var user = userCredential.user;
     console.log(user)
-    navigation.navigate('CompanyRoot', {
-      user: user,
-      type: "company"
-    })
+    navigation.navigate('AdminRoot')
     // ...
   })
   .catch((error) => {
@@ -53,7 +50,7 @@ export default function CompanyLoginScreen({navigation}) {
                 paddingHorizontal: 15,
                 opacity: 0.5
               }}>
-              <Text>Don't have an account?    </Text>
+              <Text>Request to be Admin?    </Text>
               <TouchableOpacity onPress={()=>navigation.navigate('CompanyRegister')}><Text>Register Now</Text></TouchableOpacity>
             </View>
            </Form>

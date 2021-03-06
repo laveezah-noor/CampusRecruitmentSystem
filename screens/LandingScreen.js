@@ -24,7 +24,11 @@ export default function LandingScreen({navigation}) {
               fontWeight: "bold",
           }}
             >Campus Recruitment System</H1>
-            <View style={{flexDirection: "row"}}>
+            
+              <TouchableOpacity 
+              onPress={()=>cardHandler('Admin')}>
+                <Text style={{color: "white"}}>Or are you an Admin?</Text></TouchableOpacity>
+              <View style={{flexDirection: "row"}}>
               <TouchableOpacity 
                onPress={()=>cardHandler('Student')}>
                  <CardMade style={{
@@ -32,7 +36,8 @@ export default function LandingScreen({navigation}) {
                     borderBottomLeftRadius: 25
                  }} icon="person" text="Student"/>
               </TouchableOpacity>
-              <TouchableOpacity onPress={()=>cardHandler('Company')}>
+              <TouchableOpacity 
+              onPress={()=>cardHandler('Company')}>
                 <CardMade  style={{
                     borderTopRightRadius: 25,
                     borderBottomRightRadius: 25

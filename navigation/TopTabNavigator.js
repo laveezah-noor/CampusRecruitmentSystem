@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import CompanyLoginScreen from '../screens/Company/LoginScreen';
 import StudentLoginScreen from '../screens/Student/LoginScreen';
 import LandingScreen from '../screens/LandingScreen'
+import AdminLoginScreen from '../screens/Admin/LoginScreen'
 
 const Stack = createStackNavigator();
 
@@ -14,6 +15,7 @@ function LoginNavigator({navigation}) {
           name="Landing" component={LandingScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Company" component={CompanyLoginScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Student" component={StudentLoginScreen} options={{ headerShown: false }}/>
+          <Stack.Screen name="Admin" component={AdminLoginScreen} options={{ headerShown: false }}/>
       </Stack.Navigator>
   );
 }
